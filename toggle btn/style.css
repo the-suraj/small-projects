@@ -1,0 +1,73 @@
+.tgl-in {
+  display: none;
+}
+.tgl-in, .tgl-in:after, .tgl-in:before, .tgl-in *, .tgl-in *:after, .tgl-in *:before, .tgl-in + .tgl-span {
+  box-sizing: border-box;
+}
+.tgl-in::-moz-selection, .tgl-in:after::-moz-selection, .tgl-in:before::-moz-selection, .tgl-in *::-moz-selection, .tgl-in *:after::-moz-selection, .tgl-in *:before::-moz-selection, .tgl-in + .tgl-span::-moz-selection {
+  background: none;
+}
+.tgl-in::selection, .tgl-in:after::selection, .tgl-in:before::selection, .tgl-in *::selection, .tgl-in *:after::selection, .tgl-in *:before::selection, .tgl-in + .tgl-span::selection {
+  background: none;
+}
+.tgl-in + .tgl-span {
+    --btn-width: 3em;
+    --btn-height: 1.3em;
+    outline: none;
+    display: inline-block;
+    width: var(--btn-width);
+    height: var(--btn-height);
+    position: relative;
+    cursor: pointer;
+    background: #dadada;
+    border-radius: var(--btn-height);
+    padding: calc(var(--btn-height)/30);
+    transition: all 0.4s ease;
+    border: 1px solid #e8eae9;
+    -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+            user-select: none;
+    margin: calc(var(--btn-height)*(0.5));
+}
+.tgl-in + .tgl-span:after, .tgl-in + .tgl-span:before {
+  position: relative;
+  top: 50%;
+  display: block;
+  content: "";
+  width: calc(var(--btn-height)*1.3);
+  height: calc(var(--btn-height)*1.3);
+  transform:  translateY(-50%);
+}
+.tgl-in + .tgl-span:after {
+  left: calc(var(--btn-height)*(-0.2));
+  border-radius: 50%;
+  background: #fbfbfb;
+  transition: left 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), padding 0.3s ease, margin 0.3s ease;
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 0 rgba(0, 0, 0, 0.08);
+}
+.tgl-in + .tgl-span:before {
+  display: none;
+}
+.tgl-in:checked + .tgl-span:after {
+  left: calc(100% - var(--btn-height)*1.1);
+}
+.tgl-in + .tgl-span:hover:after {
+  will-change: padding;
+}
+.tgl-in + .tgl-span:active {
+  box-shadow: inset 0 0 0 2em #e8eae9;
+}
+.tgl-in + .tgl-span:active:after {
+  --flow-distance-of-btn: 0.2em;
+  padding-right: var(--flow-distance-of-btn);
+}
+.tgl-in:checked + .tgl-span {
+  background: green;
+}
+.tgl-in:checked + .tgl-span:active {
+  box-shadow: none;
+}
+.tgl-in:checked + .tgl-span:active:after {
+  margin-left: calc(- var(--flow-distance-of-btn));
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Web Worker</title>
+</head>
+
+<body>
+    <input type="number" id="number">
+    <button id="subtract">subtract</button>
+    <p id="result">RESULT will appear here</p>
+
+    <script>
+        let myWorker;
+        let interval;
+        let ProcessingTime = 0;
+
+        if ("Worker" in window) {
+            console.log("Wonker is supported");
+            myWorker = new Worker('worker.js');
+        }
+        const subtract = document.getElementById('subtract');
+        const number = document.getElementById('number');
+        const result = document.getElementById('result');
+
+        const sub_fn = () => {
+            // talk to Worker
+            console.log('Message sending to worker');
+            result.innerHTML = '';
+
+            interval = setInterval(() => {
+                result.innerText = 'Processing ' + ProcessingTime++ + 'sec';
+            }, 1000);
+            
+            myWorker.postMessage(number.value);
+        }
+        myWorker.onmessage = function (e) {
+            console.log('Message received from worker', e);
+
+            clearInterval(interval);
+
+            result.innerText = e.data;
+        }
+        subtract.addEventListener('click', sub_fn);
+    </script>
+</body>
+
+</html>

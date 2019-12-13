@@ -1,8 +1,9 @@
 // This is the service worker with the Cache-first network
 
-const CACHE = "pwabuilder-precache";
+const cacheName = "v2";
 const precacheFiles = [
   /* Add an array of files to precache for your app */
+  './'
 ];
 
 self.addEventListener("install", function (event) {
@@ -12,7 +13,7 @@ self.addEventListener("install", function (event) {
   self.skipWaiting();
 
   event.waitUntil(
-    caches.open(CACHE).then(function (cache) {
+    caches.open(cacheName).then(function (cache) {
       console.log("[PWA Builder] Caching pages during install");
       return cache.addAll(precacheFiles);
     })
@@ -23,10 +24,25 @@ self.addEventListener("install", function (event) {
 self.addEventListener("activate", function (event) {
   console.log("[PWA Builder] Claiming clients for current page");
   event.waitUntil(self.clients.claim());
+
+  // remove unwanted previously cached files
+  event.waitUntil(
+    /* here we will iterate through all the caches and delete all the cache other the one whose name is saved in 'cacheName' variable */
+    caches.keys().then(cacheNames => {
+      return Promise.all(
+        cacheNames.map(cache => {
+          if (cache !== cacheName) {
+            console.log('Service Worker: claering Old cache');
+            return caches.delete(cache);
+          }
+        })
+      );
+    })
+  );
 });
 
 // If any fetch fails, it will look for the request in the cache and serve it from there first
-self.addEventListener("fetch", function (event) { 
+self.addEventListener("fetch", function (event) {
   if (event.request.method !== "GET") return;
 
   event.respondWith(
@@ -65,7 +81,7 @@ function fromCache(request) {
   // Check to see if you have it in the cache
   // Return response
   // If not in the cache, then return
-  return caches.open(CACHE).then(function (cache) {
+  return caches.open(cacheName).then(function (cache) {
     return cache.match(request).then(function (matching) {
       if (!matching || matching.status === 404) {
         return Promise.reject("no-match");
@@ -77,7 +93,7 @@ function fromCache(request) {
 }
 
 function updateCache(request, response) {
-  return caches.open(CACHE).then(function (cache) {
+  return caches.open(cacheName).then(function (cache) {
     return cache.put(request, response);
   });
 }

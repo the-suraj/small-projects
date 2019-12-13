@@ -1,0 +1,25 @@
+.gallery-container {
+    width: 90vw;
+    height: 90vh;
+    overflow: auto;
+}
+.gallery-container .gallery {
+    display: grid;
+    /* grid-gap: 2em; */
+    grid-template-columns: repeat(auto-fit, minmax(1em, 10em));
+    justify-items: center;
+    align-items: center;
+}
+.gallery-container .gallery .img-container{
+    padding: 0;
+    overflow: hidden;
+    outline: 2px solid red;
+}
+.gallery-container .gallery .img-container .image {
+    width: 100%;
+    transition: transform 700ms ease;
+    transform-origin: 0;
+}
+.gallery-container .gallery .img-container:hover .image {
+    transform: scale3d(1.2,1.2,1.2);
+}

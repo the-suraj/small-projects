@@ -4,7 +4,7 @@
     --gallery-height: calc(var(--height)/2);
     --big-radius: 3em;
     --small-radius: 1em;
-
+    margin: 1em;
     width: var(--width);
     /* height: var(--height); */
     position: relative;
@@ -20,7 +20,7 @@
 .card .card-gallery {
     position: relative;
     display: flex;
-    width: var(--width);
+    width: 100%;
     height: var(--gallery-height);
     background-color: rgb(197, 197, 197);
     overflow: hidden;
@@ -35,16 +35,28 @@
 }
 .previous-card-image-button,
 .next-card-image-button {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    
     position: absolute;
     top: calc(var(--gallery-height)/2);
-    width: calc(var(--width)/7);
-    height: calc(var(--width)/7);
+    width: calc(var(--width)/8);
+    height: calc(var(--width)/8);
     margin: 0;
     border-radius: 50%;
     border: none;
     visibility: hidden;
     opacity: 0;
+    cursor: pointer;
     transition: transform 200ms ease-in-out, opacity 200ms ease-in, visibility 200ms ease-in-out;
+}
+.previous-card-image-button .icon-svg,
+.next-card-image-button .icon-svg {
+    width: 100%;
+    height: 100%;
+    fill: #535353;
 }
 .previous-card-image-button {
     left: 0;
@@ -106,7 +118,7 @@
     display: -webkit-box;
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 3;
-    font-size: large;
+    font-size: normal;
     margin: 0.3em;
     text-align: center;
     color: rgb(85, 85, 85);
@@ -121,9 +133,32 @@
  }
 .card-navigator {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-end;
+    align-items: center;
+    align-content: center;
+    padding: 0 calc(var(--big-radius)/2) 0 0;
 }
 .card-navigator-button {
-    padding: 0.2em 0.8em;
-    text-transform: uppercase;
+    position: relative;
+    display: flex;
+    width: 3em;
+    height: 3em;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    
+    border: none;
+    border-radius: 100%;
+    cursor: pointer;
+    
+    background: none;
+    transition: background 250ms ease;
+}
+.card-navigator-button:hover {
+    background-color: #dbdbdb33;
+}
+.card-navigator-button-icon {
+    width: 1.5em;
+    height: 1.5em;
+    fill: rgb(83, 83, 83);
 }

@@ -14,16 +14,16 @@
 
 <body>
     <section class="card">
-        <div class="card-gallery">
-            <img src="./images/card1/img1.jpg" alt="card1 img1" class="card-image">
-            <img src="./images/card1/img2.jpg" alt="card1 img2" class="card-image">
-            <img src="./images/card1/img3.jpg" alt="card1 img3" class="card-image">
-            <img src="./images/card1/img4.jpg" alt="card1 img4" class="card-image">
-            <img src="./images/card1/img5.jpg" alt="card1 img5" class="card-image">
+        <div class="card-gallery" data-displaying_image="0">
+            <img src="./images/card1/img5.jpg" alt="card1 img5" class="card-image" style="z-index: auto;">
+            <img src="./images/card1/img4.jpg" alt="card1 img4" class="card-image" style="z-index: -1;">
+            <img src="./images/card1/img3.jpg" alt="card1 img3" class="card-image" style="z-index: -1;">
+            <img src="./images/card1/img1.jpg" alt="card1 img1" class="card-image" style="z-index: -1;">
+            <img src="./images/card1/img2.jpg" alt="card1 img2" class="card-image" style="z-index: -1;">
         </div>
-        <button class="previous-card-image-button"><svg viewBox="0 0 24 24" class="icon-svg"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
+        <button class="previous-card-image-button" style="visibility: hidden;"><svg viewBox="0 0 24 24" class="icon-svg"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
         <button class="next-card-image-button"><svg viewBox="0 0 24 24" class="icon-svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
-        <div class="card-image-navigator">
+        <div class="card-image-navigator" style="display: none;">
             <button class="card-image-navigator-btn" data-pointing-card-image="1">1</button>
             <button class="card-image-navigator-btn" data-pointing-card-image="1">2</button>
             <button class="card-image-navigator-btn" data-pointing-card-image="1">3</button>
@@ -48,6 +48,7 @@
         </div>
     </section>
     <script src="./scripts/ripple.js"></script>
+    <script src="./scripts/card1.js"></script>
 </body>
 
 </html>

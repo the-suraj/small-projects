@@ -29,9 +29,10 @@
     border-top-right-radius: var(--small-radius);
 }
 .card .card-gallery .card-image {
+    position: absolute;
     object-fit: cover;
     width: 100%;
-    height: 100%
+    height: 100%;
 }
 .previous-card-image-button,
 .next-card-image-button {
@@ -50,7 +51,20 @@
     visibility: hidden;
     opacity: 0;
     cursor: pointer;
-    transition: transform 200ms ease-in-out, opacity 200ms ease-in, visibility 200ms ease-in-out;
+    transition: transform 200ms ease-in-out, opacity 200ms ease-in, background 200ms ease;
+    background: none;
+}
+
+.next-card-image-button:hover,
+.previous-card-image-button:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+@supports (backdrop-filter: blur(1em)) {
+    .next-card-image-button,
+    .previous-card-image-button {
+        background-color: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(1em);
+    }
 }
 .previous-card-image-button .icon-svg,
 .next-card-image-button .icon-svg {

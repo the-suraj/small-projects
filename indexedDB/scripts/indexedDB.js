@@ -1,47 +1,55 @@
-// // This is what our customer data looks like.
-// const customerData = [
-//     { ssn: "444-44-4444", name: "Bill", age: 35, email: "bill@company.com" },
-//     { ssn: "555-55-5555", name: "Donna", age: 32, email: "donna@home.org" }
-// ];
+// This is what our customer data looks like.
+const users = [
+    { phone: "+18888888881", name: "Bill Gate", age: 35, email: "billgate1@example.com" },
+    { phone: "+19999999991", name: "Donna Roy", age: 32, email: "donnaroy2@example.com" }
+];
 
-// const dbName = "MyTestDatabase";
-// const version = 2;
+const DBName = "default_DB";
+const version = 1;
+let DB = null;
+let request = indexedDB.open(DBName, version);
 
-// var request = indexedDB.open(dbName, version);
+request.onsuccess = function (event) {
+    console.log('DB is opened successFully');
+    DB = event.target.result;
 
-// request.onsuccess = function (event) {
-//     console.log('DB is opened successFully: ', event);
-//     console.log("DB is: " + event.target.result);
-// };
-// request.onerror = function (event) {
-//     console.log('Error in opening DB: ', event);
-//     console.error("Database error: " + event.target.errorCode);
-// };
-// request.onupgradeneeded = function (event) {
-//     var db = event.target.result;
+    // Store values in the newly created objectStore.
+    // addNewUsers(users);
+};
 
-//     // Create an objectStore to hold information about our customers. We're
-//     // going to use "ssn" as our key path because it's guaranteed to be
-//     // unique - or at least that's what I was told during the kickoff meeting.
-//     var objectStore = db.createObjectStore("customers", { keyPath: "ssn" });
+request.onerror = function (event) {
+    console.log('Error in opening DB');
+    console.error("Database error: " + event.target.error);
+};
 
-//     // Create an index to search customers by name. We may have duplicates
-//     // so we can't use a unique index.
-//     objectStore.createIndex("name", "name", { unique: false });
+request.onupgradeneeded = function (event) {
+    console.log('On upgrade needed called');
+    DB = event.target.result;
 
-//     // Create an index to search customers by email. We want to ensure that
-//     // no two customers have the same email, so use a unique index.
-//     objectStore.createIndex("email", "email", { unique: true });
+    const objectStore = DB.createObjectStore(["USERS_data"], { autoIncrement: true });
 
-//     // Use transaction oncomplete to make sure the objectStore creation is 
-//     // finished before adding data into it.
-//     objectStore.transaction.oncomplete = function (event) {
-//         console.log('canDoTransaction', canDoTransaction)
-//         // Store values in the newly created objectStore.
-//         var customerObjectStore = db.transaction("customers", "readwrite").objectStore("customers");
-//         customerData.forEach(function (customer) {
-//             customerObjectStore.add(customer);
-//             console.log(customer);
-//         });
-//     };
-// };
+    // var myIDBIndex = objectStore.createIndex(indexName, keyPath, objectParameters);
+    objectStore.createIndex("email", "email", { unique: true });
+    objectStore.createIndex("phone", "phone", { unique: true });
+    objectStore.createIndex("name", "name", { unique: false });
+    objectStore.createIndex("age", "age", { unique: false });
+
+    // Use transaction oncomplete to make sure the objectStore creation is 
+    // finished before adding data into it.
+};
+
+
+let addNewUsers = (users) => {
+
+    let transaction = DB.transaction("USERS_data", "readwrite");
+    let USERS_data_ObjectStore = transaction.objectStore("USERS_data");
+
+    users.forEach( (user, index) => {
+        let req = USERS_data_ObjectStore.add(user);
+        req.onsuccess =  () => console.error(`${index} data Added`);
+        req.onerror = event => console.error(event.target.error);
+    });
+
+    transaction.oncomplete = () => console.log("All done!");
+    // transaction.onerror = event =>  console.log(event.target.error);
+}

@@ -1,12 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./stylesheets/main.css">
     <title>Document</title>
 </head>
+
 <body>
+    <section class="addUser">
+        <h3>Add Data To indexedDB</h3>
+        <label for="userName_input">
+            <span class="label-text">Name:</span>
+            <input type="text" id="userName_input">
+        </label>
+        <label for="phoneNumber_input">
+            <span class="label-text">Phone:</span>
+            <input type="tel" id="phoneNumber_input" required>
+        </label>
+        <label for="age_input">
+            <span class="label-text">Age:</span>
+            <input type="number" id="age_input" min="0" max="150">
+        </label>
+        <label for="email_input">
+            <span class="label-text">Email:</span>
+            <input type="email" id="email_input" required>
+        </label>
+        <label for="add_user_button">
+            <button id="add_user_button">ADD USER</button>
+        </label>
+    </section>
+    <section class="output-section">
+        <h3>Output Will Appear here</h3>
+        <label for="get_user_button">
+            <button id="get_user_button">Get USER</button>
+        </label>
+        <output id="output">
+            <table>
+                <caption>A summary of the UK's most famous punk bands</caption>
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Email</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Suraj</th>
+                        <td>18</td>
+                        <td>+919167451051</td>
+                        <td>surajsjjha@gmail.com</td>
+                    </tr>
+                </tbody>
+            </table>
+        </output>
+    </section>
     <script src="./scripts/indexedDB.js"></script>
+    <script src="./scripts/main.js"></script>
 </body>
+
 </html>

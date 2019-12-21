@@ -6,6 +6,7 @@
     align-items: center;
 }
 .input-section label,
+.input-section div,
 .output-section label {
     flex: 1 1 auto;
     width: 100%;
@@ -28,6 +29,6 @@
     flex: 1 1 70%;
     min-width: 10em;
 }
-.input-section label button {
+.input-section div button {
     padding: 0.5em 2em;
 }

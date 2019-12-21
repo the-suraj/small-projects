@@ -1,4 +1,4 @@
-const iterationsCount = 1000000;
+const iterationsCount = 100000;
 const getCryptoKey = (password_asBytes, salt, usages) => {
     return window.crypto.subtle.importKey(
         "raw",

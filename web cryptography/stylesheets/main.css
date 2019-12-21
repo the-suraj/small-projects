@@ -1,0 +1,33 @@
+.input-section, .output-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+.input-section label,
+.output-section label {
+    flex: 1 1 auto;
+    width: 100%;
+    max-width: 30em;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-content: center;
+    align-items: center;
+    margin: 0.5em 0;
+}
+.input-section label .label-text,
+.output-section label .label-text {
+    min-width: 5em;
+    flex: 1 1 auto;
+}
+
+.input-section label input, .input-section label textarea,
+.output-section label textarea {
+    flex: 1 1 70%;
+    min-width: 10em;
+}
+.input-section label button {
+    padding: 0.5em 2em;
+}

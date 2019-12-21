@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Web Cryptography</title>
+    <link rel="stylesheet" href="./stylesheets/main.css">
+</head>
+
+<body>
+    <section class="input-section">
+        <h3>Input Section</h3>
+        <label for="data_input">
+            <span class="label-text">Data</span>
+            <textarea id="data_input" rows="5">Hello World!</textarea>
+        </label>
+        <label for="password_input">
+            <span class="label-text">Password</span>
+            <input id="password_input" type="text" value="12345678">
+        </label>
+        <label>
+            <button id="encrypt_button">Encrypt</button>
+            <button id="decrypt_button">Decrypt</button>
+        </label>
+    </section>
+    <hr>
+    <section class="output-section">
+        <h3>Output Section</h3>
+        <label for="output">
+            <span class="label-text">Output</span>
+            <textarea id="output" rows="5"></textarea>
+        </label>
+    </section>
+    <script src="./scripts/main.js"></script>
+    <script src="./scripts/crypto.js"></script>
+</body>
+
+</html>

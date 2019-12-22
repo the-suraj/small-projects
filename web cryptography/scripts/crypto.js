@@ -1,5 +1,4 @@
-const iterationsCount = 100000;
-const getCryptoKey = (password_asBytes, salt, usages) => {
+const getCryptoKey = (password_asBytes, salt, usages, iterationsCount = 100000) => {
     return window.crypto.subtle.importKey(
         "raw",
         password_asBytes,
@@ -19,11 +18,11 @@ const getCryptoKey = (password_asBytes, salt, usages) => {
             return aes_cryptoKey_256;
         })
 }
-let encrypt = (data, password) => {
+let encrypt = (data, password, hashing_iterationsCount = 100000) => {
     const data_asBytes = new TextEncoder("utf-8").encode(data);
     const password_asBytes = new TextEncoder("utf-8").encode(password);
     const salt = window.crypto.getRandomValues(new Uint8Array(32));
-    const get_aes_encryptoKey_256_request = getCryptoKey(password_asBytes, salt, ['encrypt']);
+    const get_aes_encryptoKey_256_request = getCryptoKey(password_asBytes, salt, ['encrypt'], hashing_iterationsCount);
     return get_aes_encryptoKey_256_request.then(aes_encryptoKey_256 => {
         const initialVector = window.crypto.getRandomValues(new Uint8Array(12));
         return window.crypto.subtle.encrypt(
@@ -43,7 +42,7 @@ let encrypt = (data, password) => {
             .catch(err => console.error(err))
     })
 }
-let decrypt = (encrypted_data_object_string, password) => {
+let decrypt = (encrypted_data_object_string, password, hashing_iterationsCount = 100000) => {
     const password_asBytes = new TextEncoder("utf-8").encode(password);
     const encrypted_data_object = JSON.parse(encrypted_data_object_string);
 
@@ -65,7 +64,7 @@ let decrypt = (encrypted_data_object_string, password) => {
     }
     const encrypted_data_asBytes = new Uint8Array(encrypted_data_asBytes_array);
 
-    const get_aes_decryptoKey_256_request = getCryptoKey(password_asBytes, salt, ['decrypt']);
+    const get_aes_decryptoKey_256_request = getCryptoKey(password_asBytes, salt, ['decrypt'], hashing_iterationsCount);
     return get_aes_decryptoKey_256_request.then(aes_decryptoKey_256 => {
         return window.crypto.subtle.decrypt(
             { name: 'AES-GCM', iv: initialVector },

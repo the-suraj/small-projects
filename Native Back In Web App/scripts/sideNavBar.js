@@ -3,7 +3,7 @@ let sideNavBar = document.getElementById('side-navBar');
 let body_header = document.getElementById('body-header');
 let repositionSideNavBar = () => {
     if (sidebar_btn_checkBox.checked === true) {
-        if(NavigateTo) NavigateTo({type: 'toggle_button', value: sidebar_btn_checkBox, url: 'navigation', from: 'DOM'});
+        if(typeof NavigateTo === 'function') NavigateTo({type: 'toggle_button', value: sidebar_btn_checkBox, state: 'navigation', from: 'DOM'});
         sideNavBar.style.transform = "translateX(0)";
         if (!media_forHeader.matches) {
             document.getElementById('secondary-menu-close-btn').style.display = "initial";
@@ -11,7 +11,7 @@ let repositionSideNavBar = () => {
             document.getElementById('secondary-menu-close-btn').style.display = "none";
         }
     } else {
-        if(typeof NavigateBackFrom === 'function') NavigateBackFrom({type: 'toggle_button', value: sidebar_btn_checkBox, url: 'navigation', from: 'DOM'});
+        if(typeof NavigateBackFrom === 'function') NavigateBackFrom({type: 'toggle_button', value: sidebar_btn_checkBox, state: 'navigation', from: 'DOM'});
         sideNavBar.style.transform = "translateX(calc(-100% - 6px))";
     }
 }

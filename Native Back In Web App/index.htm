@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Native Back In Web App</title>
+    <link rel="stylesheet" href="./stylesheets/default.css">
+    <link rel="stylesheet" href="./stylesheets/hambergerMenuBtn.css">
+    <link rel="stylesheet" href="./stylesheets/header.css">
+    <link rel="stylesheet" href="./stylesheets/sideNavBar.css">
+</head>
+<body>
+    <header id="body-header">
+        <label id="sidebar-btn" class="hamberger-menu-btn" for="sidebar-btn-checkBox">
+            <input type="checkbox" name="sidebar-btn-checkBox" id="sidebar-btn-checkBox" style="display: none;">
+            <span class="line"></span>
+            <span class="line"></span>
+            <span class="line"></span>
+        </label>
+        <h1 id="branding-h">LINEAR EQUATION <small class="small">SOLVER</small></h1>
+    </header>
+
+    <nav id="side-navBar">
+        <label for="secondary-menu-close-btn" style="display: flex; justify-content: flex-end; ">
+            <button id="secondary-menu-close-btn" onclick="document.getElementById('sidebar-btn-checkBox').click();"><svg style="fill: gray; width: 100%; height: 100%;" viewBox="0 0 47.971 47.971"><path d="M28.228,23.986L47.092,5.122c1.172-1.171,1.172-3.071,0-4.242c-1.172-1.172-3.07-1.172-4.242,0L23.986,19.744L5.121,0.88c-1.172-1.172-3.07-1.172-4.242,0c-1.172,1.171-1.172,3.071,0,4.242l18.865,18.864L0.879,42.85c-1.172,1.171-1.172,3.071,0,4.242C1.465,47.677,2.233,47.97,3,47.97s1.535-0.293,2.121-0.879l18.865-18.864L42.85,47.091c0.586,0.586,1.354,0.879,2.121,0.879s1.535-0.293,2.121-0.879c1.172-1.171,1.172-3.071,0-4.242L28.228,23.986z" /></svg></button>
+        </label>
+        <div class="nav-types">
+            <a href="#" class="nav-items" target="_blank" title="Click here to know about the App">About</a>
+            <!-- <a href="#" class="nav-items" target="_blank" title="Click here to learn how to use the App">Help</a> -->
+            <!-- <button id="giveExampleBtn" class="nav-items">Example</button> -->
+        </div>
+        <div class="nav-types">
+            <a href="./random" class="nav-items" target="_blank">Random Equation Generator</a>
+        </div>
+        <div class="nav-types">
+            <a href="https://github.com/the-suraj/les/" class="nav-items" target="_blank">Contribute</a>
+            <!-- <a href="https://forms.gle/CoGtY8rxEytXTKab6" class="nav-items" target="_blank">Feedback or Suggestion</a> -->
+        </div>
+        <div class="nav-types">
+            <!-- <a href="#" class="nav-items" target="_blank" title="Click here to explore more Apps">More Apps</a> -->
+            <a href="https://jhasuraj.com/" class="nav-items" target="_blank" title="Click here to vist portfolio of the developer of Password Generator">Creator</a>
+        </div>
+        <div class="nav-types">
+            <a href="#" class="nav-items" target="_blank">Terms and Conditions</a>
+            <!-- <a href="./privacy-and-policy/" class="nav-items" target="_blank">Privacy and Policy</a> -->
+        </div>
+        <div class="nav-types">
+            <a href="#" class="nav-items" target="_blank">Copyright</a>
+            <a href="#license" class="nav-items" target="_blank">License</a>
+        </div>
+        <div class="nav-types">
+            <p>&copy; Suraj Jha 2019-2020</p>
+            <p>All rights reserved</p>
+        </div>
+    </nav>
+
+    <script src="./scripts/sideNavBar.js"></script>
+    <script src="./scripts/navigator.js"></script>
+</body>
+</html>

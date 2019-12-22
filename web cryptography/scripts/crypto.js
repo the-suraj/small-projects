@@ -19,41 +19,43 @@ const getCryptoKey = (password_asBytes, salt, usages, iterationsCount = 100000) 
         })
 }
 const BYTE_TO_CHAR = (BYTE_obj) => {
-    BYTE_obj = BYTE_obj.replace(/0/g, 'A');
-    BYTE_obj = BYTE_obj.replace(/1/g, 'B');
-    BYTE_obj = BYTE_obj.replace(/2/g, 'C');
-    BYTE_obj = BYTE_obj.replace(/3/g, 'D');
-    BYTE_obj = BYTE_obj.replace(/4/g, 'E');
-    BYTE_obj = BYTE_obj.replace(/5/g, 'F');
-    BYTE_obj = BYTE_obj.replace(/6/g, 'G');
-    BYTE_obj = BYTE_obj.replace(/7/g, 'H');
-    BYTE_obj = BYTE_obj.replace(/8/g, 'I');
-    BYTE_obj = BYTE_obj.replace(/9/g, 'J');
-    BYTE_obj = BYTE_obj.replace(/{/g, 'K');
-    BYTE_obj = BYTE_obj.replace(/}/g, 'L');
-    BYTE_obj = BYTE_obj.replace(/_/g, 'M');
-    BYTE_obj = BYTE_obj.replace(/"/g, 'N');
-    BYTE_obj = BYTE_obj.replace(/:/g, 'O');
-    BYTE_obj = BYTE_obj.replace(/,/g, 'P');
+    // reserved: s, iv, d free: abelt
+    BYTE_obj = BYTE_obj.replace(/0/g, 'c');
+    BYTE_obj = BYTE_obj.replace(/1/g, 'f');
+    BYTE_obj = BYTE_obj.replace(/2/g, 'g');
+    BYTE_obj = BYTE_obj.replace(/3/g, 'h');
+    BYTE_obj = BYTE_obj.replace(/4/g, 'j');
+    BYTE_obj = BYTE_obj.replace(/5/g, 'k');
+    BYTE_obj = BYTE_obj.replace(/6/g, 'm');
+    BYTE_obj = BYTE_obj.replace(/7/g, 'n');
+    BYTE_obj = BYTE_obj.replace(/8/g, 'o');
+    BYTE_obj = BYTE_obj.replace(/9/g, 'p');
+    BYTE_obj = BYTE_obj.replace(/{/g, 'q');
+    BYTE_obj = BYTE_obj.replace(/}/g, 'u');
+    BYTE_obj = BYTE_obj.replace(/_/g, 'w');
+    BYTE_obj = BYTE_obj.replace(/"/g, 'x');
+    BYTE_obj = BYTE_obj.replace(/:/g, 'y');
+    BYTE_obj = BYTE_obj.replace(/,/g, 'z');
+    // reserved: s, iv, d free: abelt
     return BYTE_obj;
 }
 const CHAR_TO_BYTE = (CHAR_obj) => {
-    CHAR_obj = CHAR_obj.replace(/A/g, '0');
-    CHAR_obj = CHAR_obj.replace(/B/g, '1');
-    CHAR_obj = CHAR_obj.replace(/C/g, '2');
-    CHAR_obj = CHAR_obj.replace(/D/g, '3');
-    CHAR_obj = CHAR_obj.replace(/E/g, '4');
-    CHAR_obj = CHAR_obj.replace(/F/g, '5');
-    CHAR_obj = CHAR_obj.replace(/G/g, '6');
-    CHAR_obj = CHAR_obj.replace(/H/g, '7');
-    CHAR_obj = CHAR_obj.replace(/I/g, '8');
-    CHAR_obj = CHAR_obj.replace(/J/g, '9');
-    CHAR_obj = CHAR_obj.replace(/K/g, '{');
-    CHAR_obj = CHAR_obj.replace(/L/g, '}');
-    CHAR_obj = CHAR_obj.replace(/M/g, '_');
-    CHAR_obj = CHAR_obj.replace(/N/g, '"');
-    CHAR_obj = CHAR_obj.replace(/O/g, ':');
-    CHAR_obj = CHAR_obj.replace(/P/g, ',');
+    CHAR_obj = CHAR_obj.replace(/c/g, '0');
+    CHAR_obj = CHAR_obj.replace(/f/g, '1');
+    CHAR_obj = CHAR_obj.replace(/g/g, '2');
+    CHAR_obj = CHAR_obj.replace(/h/g, '3');
+    CHAR_obj = CHAR_obj.replace(/j/g, '4');
+    CHAR_obj = CHAR_obj.replace(/k/g, '5');
+    CHAR_obj = CHAR_obj.replace(/m/g, '6');
+    CHAR_obj = CHAR_obj.replace(/n/g, '7');
+    CHAR_obj = CHAR_obj.replace(/o/g, '8');
+    CHAR_obj = CHAR_obj.replace(/p/g, '9');
+    CHAR_obj = CHAR_obj.replace(/q/g, '{');
+    CHAR_obj = CHAR_obj.replace(/u/g, '}');
+    CHAR_obj = CHAR_obj.replace(/w/g, '_');
+    CHAR_obj = CHAR_obj.replace(/x/g, '"');
+    CHAR_obj = CHAR_obj.replace(/y/g, ':');
+    CHAR_obj = CHAR_obj.replace(/z/g, ',');
     return CHAR_obj;
 }
 let encrypt = (data, password, hashing_iterationsCount = 100000) => {
@@ -71,9 +73,9 @@ let encrypt = (data, password, hashing_iterationsCount = 100000) => {
             // encrypted_data is: ArrayBuffer
             const encrypted_data_as_bytes = new Uint8Array(encrypted_data);
             encrypted_data_object = {
-                salt: salt,
-                initialvector: initialvector,
-                encrypted_data_as_bytes: encrypted_data_as_bytes
+                s: salt,
+                iv: initialvector,
+                d: encrypted_data_as_bytes
             }
             let encryptedString = BYTE_TO_CHAR(JSON.stringify(encrypted_data_object));
             return encryptedString;
@@ -86,20 +88,20 @@ let decrypt = (encrypted_data_object_string, password, hashing_iterationsCount =
     const encrypted_data_object = JSON.parse(CHAR_TO_BYTE(encrypted_data_object_string));
 
     let salt_array = [];
-    for (const key in encrypted_data_object.salt) {
-        salt_array.push(encrypted_data_object.salt[key]);
+    for (const key in encrypted_data_object.s) {
+        salt_array.push(encrypted_data_object.s[key]);
     }
     const salt = new Uint8Array(salt_array);
 
     let initialvector_array = [];
-    for (const key in encrypted_data_object.initialvector) {
-        initialvector_array.push(encrypted_data_object.initialvector[key]);
+    for (const key in encrypted_data_object.iv) {
+        initialvector_array.push(encrypted_data_object.iv[key]);
     }
     const initialvector = new Uint8Array(initialvector_array);
 
     let encrypted_data_as_bytes_array = [];
-    for (const key in encrypted_data_object.encrypted_data_as_bytes) {
-        encrypted_data_as_bytes_array.push(encrypted_data_object.encrypted_data_as_bytes[key]);
+    for (const key in encrypted_data_object.d) {
+        encrypted_data_as_bytes_array.push(encrypted_data_object.d[key]);
     }
     const encrypted_data_as_bytes = new Uint8Array(encrypted_data_as_bytes_array);
 

@@ -52,8 +52,9 @@ let NavigateTo = (param) => {
             if (navArray.filter(obj => obj.state === param.state).length === 0) {
                 navArray.push(param);
                 window.history.pushState(comingState, comingState, comingState);
+            } else {
+                window.history.replaceState(comingState, comingState, comingState);
             }
-            window.history.replaceState(comingState, comingState, comingState);
         }
     }
 }

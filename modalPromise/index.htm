@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Modal Box returning Promise</title>
+</head>
+
+<body>
+    <button id="show_modal_btn">Show</button>
+    <div id="modal" style="display: none;">
+        <button id="modal_accept">Accept</button>
+        <button id="modal_reject">Reject</button>
+    </div>
+    <output id="output">
+    </output>
+    <script>
+        let modal = document.getElementById('modal');
+        let modal_accept = document.getElementById('modal_accept');
+        let modal_reject = document.getElementById('modal_reject');
+        let output = document.getElementById('output');
+
+        let showModal = () => {
+            modal.style.display = 'initial';
+            return new Promise((resolve, reject) => {
+                let resolver = () => {
+                    modal_accept.removeEventListener('click', resolver);
+                    modal.style.display = 'none';
+                    resolve(true);
+                }
+                let rejecter = () => {
+                    modal_reject.removeEventListener('click', rejecter);
+                    modal.style.display = 'none';
+                    reject(false);
+                }
+                modal_accept.addEventListener('click', resolver);
+                modal_reject.addEventListener('click', rejecter);
+            })
+        }
+
+        show_modal_btn.addEventListener('click', () => {
+            show_modal_btn.style.display = 'none';
+            showModal()
+                .then((bool) => {
+                    console.log('accepted, response is' + bool);
+                    output.insertAdjacentHTML('afterbegin', `<p>accepted, response is ${bool}</p>`);
+                    show_modal_btn.style.display = 'initial';
+                })
+                .catch((bool) => {
+                    console.log('rejected, response is' + bool);
+                    output.insertAdjacentHTML('afterbegin', `<p>rejected, response is ${bool}</p>`);
+                    show_modal_btn.style.display = 'initial';
+                })
+        })
+    </script>
+</body>
+
+</html>

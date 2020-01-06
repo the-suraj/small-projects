@@ -35,9 +35,9 @@
     <script>
         try {
             window.history.replaceState('home', document.title, null);
-            window.history.pushState('trap', 'trap', 'trap')
+            window.history.pushState('trap', 'trap', 'trap');
             window.onpopstate = function (event) {
-                window.history.forward();
+            window.history.pushState('trap', 'trap', 'trap');
             };
         } catch (error) {
             document.getElementById('output').innerText = error + "\n\nOhh you are lucky!!";

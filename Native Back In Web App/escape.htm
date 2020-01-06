@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>You Can not escape.</title>
+</head>
+
+<body>
+    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae perspiciatis quam ipsa explicabo dolor totam error quia enim autem! Velit provident quia, odit consectetur ducimus tenetur illum distinctio consequuntur veritatis?</p>
+    <script>
+        window.history.replaceState('home', document.title, null);
+        window.history.pushState('trap', 'trap', 'trap')
+        window.onpopstate = function (event) {
+            window.history.forward();
+        };    
+    </script>
+</body>
+
+</html>

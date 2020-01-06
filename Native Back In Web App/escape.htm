@@ -6,16 +6,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>You Can not escape.</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-content: center;
+            align-items: center;
+            color: #ff0000;
+            font-size: x-large;
+            min-height: 100vh;
+            transform: translateY(-15%);
+        }
+        body p {
+            text-align: center;
+        }
+    </style>
 </head>
 
 <body>
-    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Repudiandae perspiciatis quam ipsa explicabo dolor totam error quia enim autem! Velit provident quia, odit consectetur ducimus tenetur illum distinctio consequuntur veritatis?</p>
+    <p>
+        You Can't Use Your Back Button to close this tab.
+    </p>
     <script>
         window.history.replaceState('home', document.title, null);
         window.history.pushState('trap', 'trap', 'trap')
         window.onpopstate = function (event) {
             window.history.forward();
-        };    
+        };
     </script>
 </body>
 

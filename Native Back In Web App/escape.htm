@@ -18,6 +18,7 @@
             min-height: 100vh;
             transform: translateY(-15%);
         }
+
         body p {
             text-align: center;
         }
@@ -25,15 +26,19 @@
 </head>
 
 <body>
-    <p>
+    <p id="output">
         You Can't Use Your Back Button to close this tab.
     </p>
     <script>
-        window.history.replaceState('home', document.title, null);
-        window.history.pushState('trap', 'trap', 'trap')
-        window.onpopstate = function (event) {
-            window.history.forward();
-        };
+        try {
+            window.history.replaceState('home', document.title, null);
+            window.history.pushState('trap', 'trap', 'trap')
+            window.onpopstate = function (event) {
+                window.history.forward();
+            };
+        } catch (error) {
+            document.getElementById('output').innerText = error + "\n\nOhh you are lucky!!";
+        }
     </script>
 </body>
 

@@ -34,10 +34,10 @@
     </p>
     <script>
         try {
-            window.history.replaceState('home', document.title, null);
+            window.history.replaceState('home', document.title, "#");
             window.history.pushState('trap', 'trap', 'trap');
             window.onpopstate = function (event) {
-            window.history.pushState('trap', 'trap', 'trap');
+                window.history.go(1);
             };
         } catch (error) {
             document.getElementById('output').innerText = error + "\n\nOhh you are lucky!!";

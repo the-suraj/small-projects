@@ -1,0 +1,24 @@
+$defaultFontSize: 18px;
+$defaultFont: 'Segoe UI', Tahoma, Geneva, sans-serif;
+:root, html, body {
+    font-size: $defaultFontSize;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-family: $defaultFont;
+}
+button, label {
+    
+    outline: none;
+    user-select: none;
+
+    &, &:active, &:focus {
+        -webkit-tap-highlight-color: transparent; /* for removing the highlight */
+    }
+}
+input {
+    &, &:active, &:focus {
+        outline: none;
+        border: none;
+    }
+}

@@ -1,0 +1,17 @@
+.icon-button {
+    $buttonSpace: 15px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    border-radius: 15px;
+    border: none;
+    padding: $buttonSpace*2/3 $buttonSpace;
+    .icon {
+        margin-left: $buttonSpace;
+    }
+    .text {
+        padding: $buttonSpace;
+        font-size: $defaultFontSize*1.3;
+    }
+}

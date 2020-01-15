@@ -8,16 +8,17 @@
         margin: $pageLeftMargin;
         @media (max-width: 45em) {
             & {
-                font-size: 36px;
+                font-size: 40px;
             }
         }
-        @media (max-width: 35em) {
+        @media (max-width: 36em) {
             & {
-                font-size: 28px;
+                font-size: 30px;
             }
         }
         @media (max-width: 28em) {
             & {
+                font-size: 36px;
                 text-align: left;
             }
         }

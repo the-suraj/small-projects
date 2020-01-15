@@ -24,6 +24,13 @@ input, input:active, input:focus {
   border: none;
 }
 
+.form-section .form-section__header {
+  font-family: 'ABeeZee';
+  font-weight: 400;
+  text-align: center;
+  color: #303030;
+}
+
 .form {
   font-size: 18px;
 }
@@ -44,6 +51,7 @@ input, input:active, input:focus {
   padding: 15px;
   vertical-align: middle;
   text-align: right;
+  color: #4C4C4C;
   text-transform: uppercase;
 }
 

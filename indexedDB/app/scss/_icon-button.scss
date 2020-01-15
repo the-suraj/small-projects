@@ -17,4 +17,15 @@ $buttonSpace: 30px;
         font-size: $buttonFontSize;
         // outline: 1px solid blue;
     }
+    @media (max-width: 460px) {
+        border-radius: 10px;
+        border: none;
+        padding: $buttonSpace/2 0;
+        .icon {
+            margin: 0 $buttonSpace/4 0 $buttonSpace/2;
+        }
+        .text {
+            margin: 0 $buttonSpace/2 0 $buttonSpace/4;
+        }
+    }
 }

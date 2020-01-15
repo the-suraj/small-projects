@@ -108,6 +108,15 @@ input, input:active, input:focus {
   background-color: #e5e5e5;
 }
 
+.form .bottom-button-row {
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-justify-content: space-around;
+      -ms-flex-pack: distribute;
+          justify-content: space-around;
+}
+
 @media (max-width: 460px) {
   .form .form-row {
     -webkit-box-orient: vertical;
@@ -143,6 +152,13 @@ input, input:active, input:focus {
     margin: 24px 12px;
     background-color: #e5e5e5;
   }
+  .form .bottom-button-row {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
 }
 
 .icon-button {
@@ -175,11 +191,16 @@ input, input:active, input:focus {
   font-size: 24px;
 }
 
-.bottom-button-row {
-  -webkit-flex-wrap: wrap;
-      -ms-flex-wrap: wrap;
-          flex-wrap: wrap;
-  -webkit-justify-content: space-around;
-      -ms-flex-pack: distribute;
-          justify-content: space-around;
+@media (max-width: 460px) {
+  .icon-button {
+    border-radius: 10px;
+    border: none;
+    padding: 15px 0;
+  }
+  .icon-button .icon {
+    margin: 0 7.5px 0 15px;
+  }
+  .icon-button .text {
+    margin: 0 15px 0 7.5px;
+  }
 }

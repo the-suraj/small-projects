@@ -41,6 +41,10 @@ $defaultPadding: 15px;
             background-color: #e5e5e5;
         }
     }
+    .bottom-button-row {
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
     @media (max-width: 460px) {
         .form-row {
             flex-direction: column;
@@ -69,6 +73,9 @@ $defaultPadding: 15px;
                 margin: $defaultGap $defaultGap/2;
                 background-color: #e5e5e5;
             }
+        }
+        .bottom-button-row {
+            flex-direction: row;
         }
     }
 }

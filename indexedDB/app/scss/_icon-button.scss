@@ -8,6 +8,7 @@ $buttonSpace: 30px;
     border-radius: 15px;
     border: none;
     padding: $buttonSpace 0;
+    cursor: pointer;
     .icon {
         margin: 0 $buttonSpace/2 0 $buttonSpace;
         // outline: 1px solid blue;
@@ -21,16 +22,12 @@ $buttonSpace: 30px;
         $buttonSpace: $buttonSpace/2;
         
         border-radius: 10px;
-        border: none;
         padding: $buttonSpace 0;
         .icon {
             margin: 0 $buttonSpace/2 0 $buttonSpace;
-            // outline: 1px solid blue;
         }
         .text {
             margin: 0 $buttonSpace 0 $buttonSpace/2;
-            font-size: $buttonFontSize;
-            // outline: 1px solid blue;
         }
     }
 }

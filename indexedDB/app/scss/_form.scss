@@ -1,4 +1,5 @@
-$defaultGap: 25px;
+$defaultGap: 24px;
+$defaultPadding: 15px;
 .form {
     font-size: $defaultFontSize;
     .form-row {
@@ -6,21 +7,30 @@ $defaultGap: 25px;
         .form-label {
             flex: 0 0 5em;
             margin: $defaultGap;
-            padding: 0.5em;
+            padding: $defaultPadding;
             vertical-align: middle;
             text-align: right;
+            text-transform: uppercase;
         }
         .form-input-container {
             display: flex;
             flex-wrap: wrap;
+        
+            .form--input-partition {
+                display: flex;
+                flex-wrap: wrap;
+            }
             .form-input {
+                flex: 1 1 auto;
                 background-color: #f7f7f7;
-                padding: 0.5em;
+                padding: $defaultPadding;
                 margin: $defaultGap;
                 text-transform: uppercase;
                 font-size: $defaultFontSize;
                 border-radius: 10px;
                 vertical-align: middle;
+                min-width: 0;
+                max-width: 300px;
                 ::placeholder{
                     color: #B2B2B2;
                 }
@@ -29,6 +39,36 @@ $defaultGap: 25px;
         button {
             margin: $defaultGap $defaultGap/2;
             background-color: #e5e5e5;
+        }
+    }
+    @media (max-width: 460px) {
+        .form-row {
+            flex-direction: column;
+            // outline: 3px solid blue;
+            margin: $defaultGap 0;
+            .form-label {
+                flex: 0 0 auto;
+                margin: $defaultGap/2 $defaultGap;
+                text-align: left;
+                padding: 0;
+                font-size: $defaultFontSize*4/3;
+                // outline: 3px solid red;
+            }
+            .form-input-container {
+                .form--input-partition {
+                    width: 100%;
+                }
+                .form-input {
+                    flex: 1 1 auto;
+                    padding: $defaultPadding;
+                    margin: $defaultGap/2 $defaultGap;
+                    max-width: 100%;
+                }
+            }
+            button {
+                margin: $defaultGap $defaultGap/2;
+                background-color: #e5e5e5;
+            }
         }
     }
 }

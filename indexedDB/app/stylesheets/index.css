@@ -26,9 +26,29 @@ input, input:active, input:focus {
 
 .form-section .form-section__header {
   font-family: 'ABeeZee';
-  font-weight: 400;
+  font-weight: normal;
   text-align: center;
   color: #303030;
+  font-size: 48px;
+  margin: 24px;
+}
+
+@media (max-width: 45em) {
+  .form-section .form-section__header {
+    font-size: 36px;
+  }
+}
+
+@media (max-width: 35em) {
+  .form-section .form-section__header {
+    font-size: 28px;
+  }
+}
+
+@media (max-width: 28em) {
+  .form-section .form-section__header {
+    text-align: left;
+  }
 }
 
 .form {
@@ -47,7 +67,7 @@ input, input:active, input:focus {
   -webkit-flex: 0 0 5em;
       -ms-flex: 0 0 5em;
           flex: 0 0 5em;
-  margin: 24px;
+  margin: 24px 24px;
   padding: 15px;
   vertical-align: middle;
   text-align: right;
@@ -112,7 +132,7 @@ input, input:active, input:focus {
 }
 
 .form .form-row button {
-  margin: 24px 12px;
+  margin: 24px 24px;
   background-color: #e5e5e5;
 }
 
@@ -157,8 +177,7 @@ input, input:active, input:focus {
     max-width: 100%;
   }
   .form .form-row button {
-    margin: 24px 12px;
-    background-color: #e5e5e5;
+    margin: 24px 24px;
   }
   .form .bottom-button-row {
     -webkit-box-orient: horizontal;

@@ -6,7 +6,7 @@ $defaultPadding: 15px;
         display: flex;
         .form-label {
             flex: 0 0 5em;
-            margin: $defaultGap;
+            margin: $defaultGap $pageLeftMargin;
             padding: $defaultPadding;
             vertical-align: middle;
             text-align: right;
@@ -38,7 +38,7 @@ $defaultPadding: 15px;
             }
         }
         button {
-            margin: $defaultGap $defaultGap/2;
+            margin: $defaultGap $pageLeftMargin;
             background-color: #e5e5e5;
         }
     }
@@ -49,15 +49,13 @@ $defaultPadding: 15px;
     @media (max-width: 460px) {
         .form-row {
             flex-direction: column;
-            // outline: 3px solid blue;
             margin: $defaultGap 0;
             .form-label {
                 flex: 0 0 auto;
-                margin: $defaultGap/2 $defaultGap;
+                margin: $defaultGap/2 $pageLeftMargin;
                 text-align: left;
                 padding: 0;
                 font-size: $defaultFontSize*4/3;
-                // outline: 3px solid red;
             }
             .form-input-container {
                 .form--input-partition {
@@ -66,13 +64,12 @@ $defaultPadding: 15px;
                 .form-input {
                     flex: 1 1 auto;
                     padding: $defaultPadding;
-                    margin: $defaultGap/2 $defaultGap;
+                    margin: $defaultGap/2 $pageLeftMargin;
                     max-width: 100%;
                 }
             }
             button {
-                margin: $defaultGap $defaultGap/2;
-                background-color: #e5e5e5;
+                margin: $defaultGap $pageLeftMargin;
             }
         }
         .bottom-button-row {

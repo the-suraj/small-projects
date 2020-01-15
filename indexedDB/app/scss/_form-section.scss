@@ -1,8 +1,25 @@
 .form-section {
     #{&}__header {
         font-family: 'ABeeZee';
-        font-weight: 400;
+        font-weight: normal;
         text-align: center;
         color: #303030;
+        font-size: 48px;
+        margin: $pageLeftMargin;
+        @media (max-width: 45em) {
+            & {
+                font-size: 36px;
+            }
+        }
+        @media (max-width: 35em) {
+            & {
+                font-size: 28px;
+            }
+        }
+        @media (max-width: 28em) {
+            & {
+                text-align: left;
+            }
+        }
     }
 }

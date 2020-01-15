@@ -61,6 +61,8 @@ input, input:active, input:focus {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  max-width: 43em;
+  margin: auto;
 }
 
 .form .form-row .form-label {
@@ -144,6 +146,7 @@ input, input:active, input:focus {
   -webkit-justify-content: space-around;
       -ms-flex-pack: distribute;
           justify-content: space-around;
+  max-width: 100%;
 }
 
 @media (max-width: 460px) {
@@ -230,5 +233,6 @@ input, input:active, input:focus {
   }
   .icon-button .text {
     margin: 0 15px 0 7.5px;
+    font-size: 24px;
   }
 }

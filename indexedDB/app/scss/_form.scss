@@ -4,6 +4,9 @@ $defaultPadding: 15px;
     font-size: $defaultFontSize;
     .form-row {
         display: flex;
+        max-width: 43em;
+        margin: auto;
+        // outline: 1px solid blue;
         .form-label {
             flex: 0 0 5em;
             margin: $defaultGap $pageLeftMargin;
@@ -45,6 +48,7 @@ $defaultPadding: 15px;
     .bottom-button-row {
         flex-wrap: wrap;
         justify-content: space-around;
+        max-width: 100%;
     }
     @media (max-width: 460px) {
         .form-row {

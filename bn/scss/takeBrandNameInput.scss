@@ -1,0 +1,37 @@
+$defaultFontSize: 18px;
+$pageMargin: 24px;
+#overlay-take-brandName-Input {
+    min-width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-content: center;
+        align-items: center;
+        h2 {
+            text-align: center;
+        }
+        input {
+            display: inline-block;
+            text-align: center;
+            font-size: $defaultFontSize*3;
+            padding: $pageMargin;
+            margin: $pageMargin;
+            border-radius: $pageMargin;
+            vertical-align: middle;
+            text-transform: lowercase;
+            background-color: #aaf7bd;
+            border-bottom: 10px solid darken($color: #aaf7bd, $amount: 40);
+        }
+        div {
+            display: flex;
+            justify-content: space-evenly;
+        }
+    }
+}

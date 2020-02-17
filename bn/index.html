@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Brand Name Selection Tool</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="keywords" content="Company, Brand, Name">
+
+        <!-- critical Style Sheets -->
+        <link rel="stylesheet" href="./stylesheets/index.min.css">
+        <link rel="stylesheet" href="./stylesheets/takeBrandNameInput.min.css">
+
+        <!-- notify PWA Capable to browser -->
+        <!-- Android -->
+        <meta name="mobile-web-app-capable" content="yes">
+        <!-- ios -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+        <!-- fb share -->
+        <meta property="og:site_name" content="Brand Name Selection Tool">
+        <meta property="og:type" content="website">
+        <!-- <meta property="og:url" content="https://jhasuraj.com/"> -->
+        <!-- <meta property="og:image" content="https://jhasuraj.com/example.png"> -->
+        <meta property="og:title" content="Brand Name Selection Tool">
+        <meta property="og:description" content="Select you brand name from billions of random words">
+    </head>
+    <body>
+        <main class="main">
+            <h1 class="main--header">Brand Name</h1>
+            <div class="main--BrandName">
+                <span id="letter-5" data-value="1">a</span>
+                <span id="letter-4" data-value="1">a</span>
+                <span id="letter-3" data-value="1">a</span>
+                <span id="letter-2" data-value="1">a</span>
+                <span id="letter-1" data-value="1">a</span>
+            </div>
+            <div class="main--nav">
+                <button id="pre-name" class="tool-btn">Previous</button>
+                <button id="copy-btn" class="tool-btn">COPY</button>
+                <button id="next-name" class="tool-btn">Next</button>
+            </div>
+        </main>
+        <div id="overlay-take-brandName-Input">
+            <section class="container">
+                <h2>Write Target Brand Name</h2>
+                <input type="text" id="take-brandName-input" value="aaaaa">
+                <div>
+                    <button id="take-brandName-cancle-btn" class="tool-btn">cancle</button>
+                    <button id="take-brandName-confirm-btn" class="tool-btn">confirm</button>
+                </div>
+            </section>
+            
+        </div>
+        <script src="./scripts/changeBrandName.js"></script>
+        <script src="./scripts/setUp.js"></script>
+    </body>
+</html>

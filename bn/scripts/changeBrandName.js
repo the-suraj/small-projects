@@ -72,10 +72,26 @@ let copyName = (name) => {
     return null;
 };
 
-document.getElementById('next-name').addEventListener('click', () => {increment({count : 1, place : 1})});
-document.getElementById('pre-name').addEventListener('click', () => {decrement({count : 1, place : 1})});
+let nextName = document.getElementById('next-name');
+nextName.addEventListener('click', () => {increment({count : 1, place : 1})});
+let preName = document.getElementById('pre-name');
+preName.addEventListener('click', () => {decrement({count : 1, place : 1})});
 let mainBrandName = document.getElementsByClassName('main--BrandName')[0];
 let copyBtn = document.getElementById('copy-btn');
 copyBtn.addEventListener('click', () => {
     copyName(mainBrandName.innerText.replace(/ /g, ''));
+});
+window.addEventListener('keydown', eve => {
+    console.log(eve);
+    if (eve.key === eve.code && (eve.key === 'ArrowRight' || eve.key === 'ArrowUp')) {
+        eve.preventDefault();
+        nextName.click();
+    }
+    if (eve.key === eve.code && (eve.key === 'ArrowLeft' || eve.key === 'ArrowDown')) {
+        eve.preventDefault();
+        preName.click();
+    }
+    if (eve.key === 'c' || eve.key === 'C') {
+        copyBtn.click();
+    }
 });

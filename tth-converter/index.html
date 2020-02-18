@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>text to html converter</title>
+    <script async src="./script/index.js"></script>
+    <style>
+        #dragZone {
+            width: 500px;
+            height: 500px;
+            background-color: #eeeeee;
+        }
+    </style>
+</head>
+<body>
+    <div id="dragZone">
+        <div>Drag and Drop your file or click on browse button</div>
+        <input type="file" name="file-input" id="file-input" accept="text/plain">
+    </div>
+    <div id="file-data-div"></div>
+    <script async src="./script/filereader.js"></script>
+</body>
+</html>

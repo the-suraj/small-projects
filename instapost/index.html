@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Page Title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <meta name="keywords" content="<!--keywords here-->">
+        <meta name="msapplication-TileImage" content="./images/icons/icon(512).png">
+        <meta name="msapplication-TileColor" content="#fff">
+        <meta name="theme-color" content="#fff" />
+
+        <!-- Style Sheets -->
+        <link rel="stylesheet" href="./stylesheets/index.min.css">
+
+        <link rel="manifest" href="./manifest.json">
+        <link rel="apple-touch-icon" sizes="512x512" href="./images/icons/icon(512).png">
+        <link rel="icon" type="image/png" sizes="512x512" href="./images/icons/icon(512).png">
+
+        <!-- notify PWA Capable to browser -->
+        <!-- Android -->
+        <meta name="mobile-web-app-capable" content="yes">
+        <!-- ios -->
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
+        <!-- fb share -->
+        <meta property="og:site_name" content="Site Name">
+        <meta property="og:type" content="website">
+        <meta property="og:url" content="https://jhasuraj.com/">
+        <meta property="og:image" content="https://jhasuraj.com/example.png">
+        <meta property="og:title" content="Page title">
+        <meta property="og:description" content="Download High Quality image of instagram">
+    </head>
+    <body>
+        <header id="main-header">
+            <!-- Main Header -->
+        </header>
+        <nav id="nav-bar">
+            <!-- Navigation Menu -->
+        </nav>
+        <main id="main">
+            <div class="input-section">
+                <input type="text" id="post-link-input">
+                <button id="fetch-post-button">GO</button>
+            </div>
+            <div id="embed-post-section"></div>
+            <div class="tools">
+                <button id="post-download-button" data-thumbnail_url="" data-author_name="">Download Image</button>
+            </div>
+        </main>
+        <footer id="main-footer">
+            <!-- Main Footer -->
+        </footer>
+        
+        <!-- Scripts -->
+        <script src="./scripts/index.js"></script>
+        <script async src="./scripts/fetchPost.js"></script>
+        <script async src="./scripts/embedPost.js"></script>
+        <script async src="https://www.instagram.com/embed.js"></script>
+    </body>
+</html>

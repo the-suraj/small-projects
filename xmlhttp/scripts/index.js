@@ -31,7 +31,7 @@ function requestData(url, responseType = "") {
                 // httpRequest(resolve, reject);
             }
             else {
-                console.error(`Some unexpected error occured -> Ready State:${xmlhttp.readyState}, Status:${xmlhttp.status}`);
+                console.error(`Some unexpected error occured -> Ready State:${xmlhttp.readyState}, Status:${xmlhttp.status}`, xmlhttp);
                 reject({statusCode: xmlhttp.status,readyState: xmlhttp.readyState, discription: "Some unexpected error occured"});
             }
         };

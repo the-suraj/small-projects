@@ -1,0 +1,1 @@
+Goal: to check if web page exists without downloading the content

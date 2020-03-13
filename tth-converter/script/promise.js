@@ -1,52 +1,42 @@
-// untested
-
-class customPromise {
-    constructor (functionParam) {
-        this.functionParam = functionParam;
-    }
-
-    /**
-     * 
-     * @param {function} resolve - the given function as a parameter will be called on resolution of promise
-     */
-    then (resolve, reject) {
-        if (typeof resolve === 'function' && typeof OnReject === 'function' && !reject) {
-
-            // this case will be possible if catch() will be called before then() .
-            console.error('catch() is called before then()');
-
-        } else if (typeof resolve === 'function') {
-
-            this.OnResolve = resolve;
-            this.OnReject = (reject && typeof reject === 'function') ? reject : this.backupRejectionFunction;
-            this.callFunctionParam();
+function Promise_custom(fn) {
+    this.function = fn;
+    var self = this;
+    this.resolve = function (res) {
+        if (self.callOnSuccess_fn) {
+            self.callOnSuccess_fn(res);
         }
-        return this;
     }
-
-    /**
-     * 
-     * @param {function} reject - the given function as a parameter will be called on rejection of promise
-     */
-    catch (reject) {
-        if (typeof this.OnResolve === 'function') {
-            reject(this.error);
-        } else if (typeof reject === 'function') {
-            this.OnResolve = this.backupResolutionFunction;
-            this.OnReject = reject;
-            this.callFunctionParam();
+    this.reject = function (err) {
+        self.err = err;
+        if (self.callOnFailure_fn) {
+            self.callOnFailure_fn(self.err);
         }
-        return this;
     }
-
-    callFunctionParam () {
-        this.functionParam(this.OnResolve, this.OnReject);
-    }
-
-    backupRejectionFunction (error) {
-        this.error = error;
-    }
-    backupResolutionFunction (resolution) {
-        this.resolution = resolution;
-    }
+    return this;
 }
+Promise_custom.prototype.then = function (callOnSuccess_fn, callOnFailure_fn) {
+    this.callOnSuccess_fn = callOnSuccess_fn;
+    this.callOnFailure_fn = callOnFailure_fn;
+    this.function(this.resolve, this.reject);
+    return this;
+}
+Promise_custom.prototype.catch = function (callOnFailure_fn) {
+    this.callOnFailure_fn = callOnFailure_fn;
+    if (this.err) {
+        this.callOnFailure_fn(this.err);
+    } else if (typeof this.callOnSuccess_fn === 'undefined') {
+        this.function(this.resolve, this.reject);
+    }
+    return this;
+}
+
+new Promise_custom(function (resolve, reject) {
+    console.log('called');
+    setTimeout(() => {
+        reject(true)
+    }, 1000);
+}).then(function (res) {
+    console.log('suceed')
+}).catch(function (err) {
+    console.log('err2')
+})

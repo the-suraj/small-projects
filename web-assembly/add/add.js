@@ -22,5 +22,6 @@ window.addEventListener('load', async () => {
 })
 
 function print(msg) {
-	document.getElementById("container").innerText += msg + "\n";
+	document.getElementById("container").innerText += msg;
+	document.getElementById("container").innerHTML += "<br>";
 }

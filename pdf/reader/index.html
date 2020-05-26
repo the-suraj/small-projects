@@ -75,7 +75,7 @@
         }
 
         async function displayPDF(url) {
-            output.innerHTML = "";
+            output.innerHTML = "Loading PDF... Please Wait!!";
             const { pages, info, index } = await pdfTextContentByURL(url);
 
             console.log(pages);

@@ -5,6 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Read PDF</title>
+    <style>
+        #output {
+            display: block;
+            padding: 1em;
+        }
+    </style>
 </head>
 
 <body>
@@ -77,6 +83,8 @@
         async function displayPDF(url) {
             output.innerHTML = "Loading PDF... Please Wait!!";
             const { pages, info, index } = await pdfTextContentByURL(url);
+
+            output.innerHTML = "";
 
             console.log(pages);
 

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read PDF</title>
+</head>
+
+<body>
+    <input type="file" id="file" accept="application/pdf">
+
+    <output id="output">
+        Input PDF Files
+    </output>
+
+    <script src="../library/pdf.min.js"></script>
+    <script>
+        let output = document.getElementById('output');
+        document.getElementById('file')
+            .addEventListener('change', async function (e) {
+                handleInputFiles(e.target.files);
+            })
+        document.body.addEventListener('drop', function (event) {
+            event.stopPropagation();
+            event.preventDefault();
+            handleInputFiles(event.dataTransfer.files);
+        })
+        document.body.addEventListener('dragover', function (e) {
+            e.stopPropagation();
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'copy';
+        });
+        function handleInputFiles(files) {
+            let file = files[0];
+            if (file.type === "application/pdf") {
+                displayPDF(window.URL.createObjectURL(file));
+            } else {
+                console.error("Invalid File Type:", file.type);
+            }
+        }
+    </script>
+    <script>
+        let doc;
+        const PDFJS = pdfjsLib;
+
+        const pdfTextContentByURL = async (PDF_URL) => {
+
+            const PDFDocumentInstance = doc = await PDFJS.getDocument(PDF_URL).promise;
+
+            const totalPages = PDFDocumentInstance._pdfInfo.numPages;
+            let pages = new Array(totalPages);
+
+            for (let i = 1; i <= totalPages; i++) {
+                /**
+                 * The Below Code is minified for Better Performance
+                 * ---------------------
+                 * const page = await PDFDocumentInstance.getPage(i);
+                 * const lines = (await page.getTextContent()).items;
+                 * pages(lines);
+                 */
+                // pages.push((await (await PDFDocumentInstance.getPage(i)).getTextContent()).items);
+                pages[i - 1] = await (await (await PDFDocumentInstance.getPage(i)).getTextContent()).items;
+            }
+
+            const info = (await PDFDocumentInstance.getMetadata()).info;
+
+            // geting index of document
+            const outlines = await PDFDocumentInstance.getOutline() || [];
+            let index = new Array(outlines.length);
+            outlines.forEach((obj, i) => {
+                index[i] = obj.title;
+            });
+            return { pages, info, index };
+        }
+
+        async function displayPDF(url) {
+            output.innerHTML = "";
+            const { pages, info, index } = await pdfTextContentByURL(url);
+
+            console.log(pages);
+
+            let lastY_temp = -1;
+
+            const fr = new DocumentFragment();
+            pages.forEach(page => {
+                page.forEach(line => {
+                    // Tracking Y-coord and if changed create new p-tag
+                    if (lastY_temp != line.transform[5]) {
+                        lastY_temp = line.transform[5];
+                        let p = document.createElement('p');
+                        fr.append(p);
+                    }
+                    fr.lastChild.innerText += line.str;
+                });
+            });
+
+            output.append(fr);
+        };
+    </script>
+</body>
+
+</html>

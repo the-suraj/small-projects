@@ -16,21 +16,22 @@ imgContainers.forEach(img_container => {
 });
 
 imgs.forEach(img => {
-    if(img.naturalWidth > maxWidthOfImage) {
+    if (img.naturalWidth > maxWidthOfImage) {
         maxWidthOfImage = img.naturalWidth;
     }
-    if(img.naturalHeight > maxHeightOfImage) {
+    if (img.naturalHeight > maxHeightOfImage) {
         maxHeightOfImage = img.naturalHeight;
     }
 })
 
 imgs.forEach(img => {
-    let wBh = img.naturalWidth / img.naturalHeight;
-    let hBw = img.naturalHeight / img.naturalWidth;
+    let wBh = Math.round(img.naturalWidth / img.naturalHeight);
+    let hBw = Math.round(img.naturalHeight / img.naturalWidth);
 
-    img.parentElement.style.gridColumn = `span ${Math.round(wBh)}`;
-
-    img.parentElement.style.gridRow = `span ${Math.round(hBw)}`;
-
-    // img.parentElement.style.gridRow = `span ${Math.round(4*hBw)} / auto`;
+    if (wBh > 1) {
+        img.parentElement.style.gridColumn = `span ${wBh}`;
+    }
+    if (hBw > 1) {
+        img.parentElement.style.gridRow = `span ${hBw}`;
+    }
 });

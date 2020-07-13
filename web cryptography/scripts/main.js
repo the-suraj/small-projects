@@ -9,12 +9,12 @@ const encrypter_function = () => {
     output.value = '';
     let encrypter_promise = encrypt(data_input.value, password_input.value);
     encrypter_promise.then(encrypted_data => {
-        output.value = encrypted_data;
+        output.value = btoa(encrypted_data);
     });
 }
 const decrypter_function = () => {
     data_input.value = '';
-    let decrypter_promise = decrypt(output.value, password_input.value);
+    let decrypter_promise = decrypt(atob(output.value), password_input.value);
     decrypter_promise.then(decrypted_data => {
         data_input.value = decrypted_data;
     });

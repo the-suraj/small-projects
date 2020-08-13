@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Window's Border Glow</title>
+    <style>
+        body,
+        html {
+            min-height: 100vh;
+            background-color: #000000;
+            margin: 0;
+            padding: 0;
+        }
+        .wrapper {
+            overflow: hidden;
+            min-width: 100%;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 0;
+            background-color: hsl(0, 63%, 25%);
+            z-index: 1;
+        }
+
+        .container>div {
+            background-color: #300b0b;
+            height: 100px;
+            margin: 2px;
+            border-radius: 4px;
+            z-index: 3;
+        }
+
+        .highlighter {
+            position: fixed;
+            top: 0;
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background: radial-gradient(ellipse, hsl(0, 100%, 50%) 0%, transparent 100%);
+            z-index: 2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="border-glow"></div>
+            <div class="border-glow"></div>
+            <div class="border-glow"></div>
+            <div class="border-glow"></div>
+            <div class="border-glow"></div>
+            <div class="border-glow"></div>
+            <div class="border-glow"></div>
+            <div class="border-glow"></div>
+            <div class="border-glow"></div>
+            <div class="border-glow"></div>
+        </div>
+        <div class="highlighter"></div>
+    </div>
+
+    <script>
+        const highighter = document.querySelector(".highlighter");
+        document.addEventListener('mousemove', event => {
+            highighter.style.top = event.clientY - highighter.clientHeight / 2 + "px"
+            highighter.style.left = event.clientX - highighter.clientWidth / 2 + "px"
+            console.log(highighter.style.top, highighter.style.left);
+        })
+    </script>
+</body>
+
+</html>

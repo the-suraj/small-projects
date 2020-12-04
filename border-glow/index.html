@@ -15,33 +15,44 @@
             padding: 0;
         }
         .wrapper {
+            position: relative;
+            display: inline-block;
             overflow: hidden;
-            min-width: 100%;
         }
         .container {
             display: grid;
+            width: 100vw;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
             gap: 0;
             background-color: hsl(0, 63%, 25%);
-            z-index: 1;
         }
 
-        .container>div {
-            background-color: #300b0b;
+        .container .border-glow-parent {
+            display: flex;
+            justify-content: stretch;
+            align-content: stretch;
+            align-items: stretch;
             height: 100px;
-            margin: 2px;
-            border-radius: 4px;
+            border: 5px solid #300b0b;
             z-index: 3;
+        }
+        .container .border-glow-child {
+            margin: 1px;
+            background-color: #300b0b;
+            /* outline: 2px solid blue; */
+            flex-grow: 1;
         }
 
         .highlighter {
-            position: fixed;
+            position: absolute;
             top: 0;
             width: 300px;
             height: 300px;
             border-radius: 50%;
             background: radial-gradient(ellipse, hsl(0, 100%, 50%) 0%, #300b0b 100%);
-            z-index: 2;
+        }
+        .highlighter-container {
+            
         }
     </style>
 </head>
@@ -52,12 +63,13 @@
             <script>
                 var container = document.querySelector(".container");
                 for (let i = 0; i <= window.outerWidth*window.outerHeight/10000; i++) {
-                    container.innerHTML += '<div class="border-glow"></div>';
+                    container.innerHTML += '<div class="border-glow-parent"><div class="border-glow-child"></div></div>';
                 }
                 console.log(Math.floor(window.outerWidth*window.outerHeight/10000), "border-glow elements were added")
             </script>
         </div>
-        <div class="highlighter"></div>
+        <div class="highlighter-container"><div class="highlighter"></div></div>
+        
     </div>
 
     <script>

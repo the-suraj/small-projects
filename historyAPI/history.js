@@ -46,15 +46,11 @@ class NavigationObserver {
                             history.pushState(this.stateList[i], null, `?state=${this.stateList[i]}`);
                         }
                         clearInterval(interval)
+                        updatingHistory = false
                     }
                 }
-                const interval = setInterval(addRecords, 100);
-                
+                const interval = setInterval(addRecords, 0);
             }
-            
-            setTimeout(() => {
-                updatingHistory = false
-            }, this.stateList.length * 10);
         }
     }
     redoAction() { }
@@ -84,7 +80,6 @@ class NavigationObserver {
             }
         }
     }
-
 
     /**
      * 

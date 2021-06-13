@@ -20,6 +20,7 @@ window.onload = () => {
         */
         const showText = () => {
             moreTextArray[index].style.display = "block";
+            return true
         }
 
         /**
@@ -27,6 +28,7 @@ window.onload = () => {
          */
         const hideText = () => {
             moreTextArray[index].style.display = "none";
+            return true
         }
 
         navigationObserver.handle(moreTextArray[index], {
@@ -42,7 +44,7 @@ window.onload = () => {
                 ],
                 callback: hideText
             },
-            currentState: 'active' || 'inactive'
+            currentState: 'inactive' || 'active'
         })
     });
 }

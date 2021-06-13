@@ -19,14 +19,12 @@
             font-weight: bold;
             color: hsl(240, 100%, 73%);
         }
+        .more-text {
+            display: none;
+        }
     </style>
 </head>
 <body>
-    <script>
-        function showState() {
-            console.log(JSON.parse(atob(decodeURIComponent(window.location.href.match(/state=([\w\d\s%]*)/)[1]))))
-        }
-    </script>
     <button style="float: right; position: sticky; top: 20px;" onclick="showState()">Show State</button>
     <div class="text">
         This is Primary Text
@@ -36,10 +34,6 @@
         <div class="more-text">This is Expanded Text 2</div>
         <button class="more-btn">Toggle View 3</button>
         <div class="more-text">This is Expanded Text 3</div>
-        <button class="more-btn">Toggle View 4</button>
-        <div class="more-text">This is Expanded Text 4</div>
-        <button class="more-btn">Toggle View 5</button>
-        <div class="more-text">This is Expanded Text 5</div>
     </div>
     <script src="./history.js"></script>
     <script src="./index.js"></script>

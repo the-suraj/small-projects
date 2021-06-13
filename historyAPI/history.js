@@ -1,65 +1,87 @@
+// this value will be set to true when we will update history records with javascript
+// and will be used to avoid handling popstate event because of that.
+let updatingHistory = false;
 class NavigationObserver {
     constructor() {
         this.currentID = 0;
         this.elementsUnderObservation = [];
-        this.stateList = [];
+        this.stateList = ["Home"];
+        this.statePointer = 0;
 
-        let url = setObjectAsQueryString("state" + this.stateList);
-
-        window.history.replaceState(this.stateList, null, url);
+        history.replaceState("Home", null, "?state=Home");
         return this;
     }
     /**
      * 
      */
-    addAction(targetElement, callback) {
-        targetElement.currentState = "active";
+    addAction(targetElement, callback, event) {
+        if (callback(event)) {
+            targetElement.currentState = "active";
 
-        console.log("[Function addAction]:", targetElement, callback);
-        console.info("[history.length]", history.length)
-        this.stateList.push(targetElement.uuid)
+            // console.log("[Function addAction]:", targetElement, callback);
+            // console.info("[history.length]", history.length)
 
-        window.history.pushState(this.stateList, null, setObjectAsQueryString("state", this.stateList));
-        callback();
-    }
-    removeAction(targetElement, callback) {
-        targetElement.currentState = "inactive";
-        
-        const index = this.stateList.indexOf(targetElement.uuid);
-        console.log(index);
-        if (index > -1) {
-            const stateTimeLine = this.stateList.slice(0, index);
-            this.stateList.splice(index, 1);
-            history.replaceState(stateTimeLine, null, setObjectAsQueryString("state", stateTimeLine));
-            for (let i = index; i < this.stateList.length; i++) {
-                stateTimeLine.push(this.stateList[i]);
-                window.history.pushState(stateTimeLine, null, setObjectAsQueryString("state", stateTimeLine));
-            }
+            const index = this.stateList.indexOf(history.state)
+            this.stateList.splice(index + 1)
+            this.stateList.push(targetElement.uuid)
+    
+            history.pushState(targetElement.uuid, null, `?state=${targetElement.uuid}`);
         }
-        callback();
+    }
+    removeAction(targetElement, callback, event) {
+        // console.log(index);
+        if (callback(event)) {
+            updatingHistory = true
+
+            targetElement.currentState = "inactive";
+            const index = this.stateList.indexOf(targetElement.uuid);
+
+            if (index > -1) {
+                history.go(index - this.stateList.length)
+                this.stateList.splice(index, 1);
+
+                const addRecords = () => {
+                    if (history.state === this.stateList[index - 1]) {
+                        for (let i = index; i < this.stateList.length; i++) {
+                            history.pushState(this.stateList[i], null, `?state=${this.stateList[i]}`);
+                        }
+                        clearInterval(interval)
+                    }
+                }
+                const interval = setInterval(addRecords, 100);
+                
+            }
+            
+            setTimeout(() => {
+                updatingHistory = false
+            }, this.stateList.length * 10);
+        }
     }
     redoAction() { }
     undoAction() { }
     preserveState(comingState) {
-        console.log("[Preserve State]:", comingState);
-        if (comingState.length < navigationObserver.stateList.length) {
-            // preserve Back
-            const toDeactivate = navigationObserver.stateList.slice(comingState.length);
-            console.log("[Deactivate]: ", toDeactivate)
-            toDeactivate.forEach(uuid => {
-                this.removeAction(
-                    this.elementsUnderObservation.filter(elm => elm.uuid === uuid)[0],
-                    this.elementsUnderObservation.filter(elm => elm.uuid === uuid)[0].hide
-                );
-            })
-        } else {
-            // preserve forward
-            const toActivate = comingState.slice(navigationObserver.stateList.length);
-            console.log("[Activate]: ", toActivate);
-            toActivate.forEach(uuid => {
-                this.stateList.push(uuid);
-                this.elementsUnderObservation.filter(elm => elm.uuid === uuid)[0].show();
-            })
+        // console.log("[Preserve State]: Coming State:", comingState);
+        const index = this.stateList.indexOf(comingState);
+
+        // back logic
+        if (index !== -1) {
+            for (let i = index + 1; i < this.stateList.length; i++) {
+                const uuid = this.stateList[i]
+                const elm = this.elementsUnderObservation.filter(elm => elm.uuid === uuid)[0]
+                if (elm && elm.currentState === "active") {
+                    elm.currentState = "inactive"
+                    elm.hide()
+                }
+            }
+        }
+
+        for (let i = 0; i <= index; i++) {
+            const uuid = this.stateList[i]
+            const elm = this.elementsUnderObservation.filter(elm => elm.uuid === uuid)[0]
+            if (elm && elm.currentState === "inactive") {
+                elm.currentState = "active"
+                elm.show()
+            }
         }
     }
 
@@ -88,79 +110,51 @@ class NavigationObserver {
             onlyHide: []
         }
 
-        toShow.observableActions.forEach(observationTargetForShow => {
-            toHide.observableActions.forEach(observationTargetForHide => {
-                const isCommon = observationTargetForShow.element === observationTargetForHide.element &&
-                    observationTargetForShow.action === observationTargetForHide.action
+        toShow.observableActions.forEach(showRec => {
+            toHide.observableActions.forEach(hideRec => {
+                const isCommon = showRec.element === hideRec.element && showRec.action === hideRec.action
                 if (isCommon) {
-                    observationTargets.common.push(observationTargetForHide);
+                    observationTargets.common.push(hideRec);
                 } else {
-                    observationTargets.onlyShow.push(observationTargetForShow);
-                    observationTargets.onlyHide.push(observationTargetForHide);
+                    observationTargets.onlyShow.push(showRec);
+                    observationTargets.onlyHide.push(hideRec);
                 }
             });
         });
-        observationTargets.common.forEach(observationTarget => {
-            observationTarget.element.addEventListener(observationTarget.action, () => {
+
+        observationTargets.common.forEach(record => {
+            record.element.addEventListener(record.action, (event) => {
                 if (targetElement.currentState === "inactive") {
-                    this.addAction(targetElement, toShow.callback);
+                    this.addAction(targetElement, toShow.callback, event);
                 }
                 else {
-                    this.removeAction(targetElement, toHide.callback);
+                    this.removeAction(targetElement, toHide.callback, event);
                 }
             })
         })
-        observationTargets.onlyShow.forEach(observationTarget => {
-            observationTarget.element.addEventListener(observationTarget.action, () => {
-                this.addAction(targetElement, toShow.callback);
+        observationTargets.onlyShow.forEach(record => {
+            record.element.addEventListener(record.action, (event) => {
+                this.addAction(targetElement, toShow.callback, event);
             })
         })
-        observationTargets.onlyHide.forEach(observationTarget => {
-            observationTarget.element.addEventListener(observationTarget.action, () => {
-                this.removeAction(targetElement, toHide.callback);
+        observationTargets.onlyHide.forEach(record => {
+            record.element.addEventListener(record.action, (event) => {
+                this.removeAction(targetElement, toHide.callback, event);
             })
         })
     }
 }
 
-window.onpopstate = function (event) {
-    if (event.state) {
-        if (event.state.length < navigationObserver.stateList.length) {
-            navigationObserver.preserveState(event.state);
-        } else {
-            navigationObserver.preserveState(event.state);
-        }
-        console.log('[Event Pop State]: ', event.state, "navigationObserver.stateList", navigationObserver.stateList)
+onpopstate = function (event) {
+    const comingState = event.state;
+    if (comingState && updatingHistory === false) {
+        
+    console.log(`
+    Coming State: ${comingState},
+    StateList: ${String(navigationObserver.stateList)}
+    `);
+
+        navigationObserver.preserveState(comingState);
     }
 }
-function setObjectAsQueryString(queryName, obj) {
-
-    const query = queryName + "=" + encodeURIComponent(btoa(JSON.stringify(obj)))
-    let url;
-
-    // valid query string exists
-    if (/\?([\w\d\s%]*)=([\w\d\s%]*)/.test(window.location.search)) {
-
-        // State Parameter exists
-        if (/state=([\w\d\s%]*)/.test(window.location.search)) {
-            url = window.location.href.replace(/state=([\w\d\s%]*)/, query)
-        }
-        // State Parameter doesn't exists
-        else {
-            url = window.location.origin +
-                window.location.pathname +
-                window.location.search +
-                "&" + query +
-                window.location.hash
-        }
-    }
-    // valid query string doesn't exists
-    else {
-        url = window.location.origin +
-            window.location.pathname +
-            "?" + query +
-            window.location.hash
-    }
-    return url;
-}
-window.navigationObserver = new NavigationObserver();
+navigationObserver = new NavigationObserver();
